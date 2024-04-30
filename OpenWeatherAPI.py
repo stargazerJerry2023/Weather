@@ -9,7 +9,7 @@ def get_weather(city):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}"
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Raise an exception for any HTTP errors
+        response.raise_for_status()  
     except requests.exceptions.HTTPError as err:
         print(f"Error: {err}")
     
@@ -20,16 +20,15 @@ def get_weather(city):
     except json.JSONDecodeError as err:
         print(f"Error: Failed to parse response JSON - {err}")
         
-    # Extract relevant weather information
+   
     weather_description = data['weather'][0]['description']
     temperature = data['main']['temp']
     humidity = data['main']['humidity']
     pressure = data['main']['pressure']
     
-    # Convert temperature from Kelvin to Celsius
+ 
     temperature = round(temperature - 273.15, 2)
-    
-    # Print the weather forecast
+
     st.write(f"Weather in {city}: {weather_description}")
     st.write(f"Temperature: {temperature}°C")
     st.write(f"Humidity: {humidity}")
